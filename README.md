@@ -1,0 +1,1 @@
+Project created for code demonstration purpose only. Game play idea taken from "air-sea battle". For all questions contact savzhe@gmail.com
