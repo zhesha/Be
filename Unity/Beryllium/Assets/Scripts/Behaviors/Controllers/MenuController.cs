@@ -2,8 +2,8 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuController : MonoBehaviour {
-
+public class MenuController: MonoBehaviour {
+    
     public Button OnePlayerButton;
     public Button TwoPlayerButton;
 
@@ -15,26 +15,26 @@ public class MenuController : MonoBehaviour {
     public Button PlayButton;
     public Button ExitButton;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         selectNumberOfPlayer(NumberOfPlayer.one);
         selectGameType(GameType.antiAircraft);
-	}
+    }
 
     public void onPlayClick () {
-        SceneManager.LoadScene ("GameScene");
+        SceneManager.LoadScene("GameScene");
     }
 
     public void onExitClick () {
-        Application.Quit ();
+        Application.Quit();
     }
 
     public void onOnePlayerClick () {
-        selectNumberOfPlayer (NumberOfPlayer.one);
+        selectNumberOfPlayer(NumberOfPlayer.one);
     }
 
     public void onTwoPlayerClick () {
-        selectNumberOfPlayer (NumberOfPlayer.two);
+        selectNumberOfPlayer(NumberOfPlayer.two);
     }
 
     public void onAntiAircraftClick () {
@@ -54,14 +54,13 @@ public class MenuController : MonoBehaviour {
     }
 
     private void selectNumberOfPlayer (NumberOfPlayer numberOfPlayer) {
-        unselectNumberOfPlayerButtons ();
+        unselectNumberOfPlayerButtons();
         Global.numberOfPlayer = numberOfPlayer;
         Button button = buttonForNumberOfPlayer(numberOfPlayer);
         button.colors = selectedColors();
     }
 
-    private void selectGameType(GameType gameType)
-    {
+    private void selectGameType (GameType gameType) {
         unselectGameTypeButtons();
         Global.gameType = gameType;
         Button button = buttonForGameType(gameType);
@@ -69,20 +68,18 @@ public class MenuController : MonoBehaviour {
     }
 
     private void unselectNumberOfPlayerButtons () {
-        OnePlayerButton.colors = unselectedColors ();
-        TwoPlayerButton.colors = unselectedColors ();
+        OnePlayerButton.colors = unselectedColors();
+        TwoPlayerButton.colors = unselectedColors();
     }
 
-    private void unselectGameTypeButtons()
-    {
+    private void unselectGameTypeButtons () {
         AntiAircraftButton.colors = unselectedColors();
         TorpedoButton.colors = unselectedColors();
         ShootingGallaryButton.colors = unselectedColors();
         BomberButton.colors = unselectedColors();
     }
 
-    private ColorBlock unselectedColors()
-    {
+    private ColorBlock unselectedColors () {
         ColorBlock colors = ColorBlock.defaultColorBlock;
         float shadeOfGray = 0.7843137f;//c8 for same color as camera background
         colors.normalColor = new Color(shadeOfGray, shadeOfGray, shadeOfGray);
@@ -102,12 +99,9 @@ public class MenuController : MonoBehaviour {
     }
 
     private Button buttonForNumberOfPlayer (NumberOfPlayer numberOfPlayer) {
-        if (numberOfPlayer == NumberOfPlayer.one)
-        {
+        if (numberOfPlayer == NumberOfPlayer.one) {
             return OnePlayerButton;
-        }
-        else if (numberOfPlayer == NumberOfPlayer.two)
-        {
+        } else if (numberOfPlayer == NumberOfPlayer.two) {
             return TwoPlayerButton;
         }
 
@@ -115,20 +109,13 @@ public class MenuController : MonoBehaviour {
     }
 
     private Button buttonForGameType (GameType gameType) {
-        if (gameType == GameType.antiAircraft)
-        {
+        if (gameType == GameType.antiAircraft) {
             return AntiAircraftButton;
-        }
-        else if (gameType == GameType.torpedo)
-        {
+        } else if (gameType == GameType.torpedo) {
             return TorpedoButton;
-        }
-        else if (gameType == GameType.shootingGallary)
-        {
+        } else if (gameType == GameType.shootingGallary) {
             return ShootingGallaryButton;
-        }
-        else if (gameType == GameType.bomber)
-        {
+        } else if (gameType == GameType.bomber) {
             return BomberButton;
         }
         return null;
