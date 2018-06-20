@@ -2,3 +2,4 @@
 public enum GameType { antiAircraft, torpedo, shootingGallary, bomber }
 public enum TargetType { bigAircraft, mediumAircraft, smallAircraft }
 public enum MovementDirection { left, right }
+public enum PlayerIndex { first, second, auto }

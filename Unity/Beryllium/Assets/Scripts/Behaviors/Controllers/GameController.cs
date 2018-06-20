@@ -29,8 +29,18 @@ public class GameController : MonoBehaviour {
     void setUpAntiAircraft () {
         placeGround();
 
-        Object playerPrefab = Resources.Load("Prefabs/Player");
-        Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        GameObject playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
+        GameObject playerObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        Player firstPlayer = playerObject.GetComponent<Player>();
+        firstPlayer.setUp(PlayerIndex.first);
+
+        playerObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        Player secondPlayer = playerObject.GetComponent<Player>();
+        if (Global.numberOfPlayer == NumberOfPlayer.two) {
+            secondPlayer.setUp(PlayerIndex.second);
+        } else {
+            secondPlayer.setUp(PlayerIndex.auto);
+        }
 
         wave();
     }
