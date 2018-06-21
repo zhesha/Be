@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
     private enum ShootingDirection { normal, up, down}
     private ShootingDirection shootingDirection;
-    const float shootingCoolDownRate = 0.1f;
+    const float shootingCoolDownRate = 2f;
     private float shootingCoolDown = 0;
     private Controls controls;
     private int playerSideMultiplier;

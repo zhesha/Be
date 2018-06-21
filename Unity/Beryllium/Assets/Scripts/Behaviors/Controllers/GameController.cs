@@ -7,26 +7,6 @@ public class GameController : MonoBehaviour {
     public LineRenderer ground;
 
 	void Start () {
-        var gameType = Global.gameType;
-        if (gameType == GameType.antiAircraft) {
-            setUp();
-        } else if (gameType == GameType.torpedo) {
-            setUp();
-        } else if (gameType == GameType.shootingGallary) {
-            setUpShootingGallary();
-        } else if (gameType == GameType.bomber) {
-            setUpBomber();
-        }
-	}
-	
-	void Update () {
-        GameObject target = GameObject.FindWithTag("Target");
-        if (target == null) {
-            wave();
-        }
-	}
-
-    void setUp () {
         placeGround();
 
         GameObject playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
@@ -43,11 +23,14 @@ public class GameController : MonoBehaviour {
         }
 
         wave();
-    }
-
-    void setUpShootingGallary () {
-        setUp();
-    }
+	}
+	
+	void Update () {
+        GameObject target = GameObject.FindWithTag("Target");
+        if (target == null) {
+            wave();
+        }
+	}
 
     void setUpBomber () {
         Debug.Log("Not realized");

@@ -10,7 +10,6 @@ public class MenuController: MonoBehaviour {
     public Button AntiAircraftButton;
     public Button TorpedoButton;
     public Button ShootingGallaryButton;
-    public Button BomberButton;
 
     public Button PlayButton;
     public Button ExitButton;
@@ -49,10 +48,6 @@ public class MenuController: MonoBehaviour {
         selectGameType(GameType.shootingGallary);
     }
 
-    public void onBomberClick () {
-        selectGameType(GameType.bomber);
-    }
-
     private void selectNumberOfPlayer (NumberOfPlayer numberOfPlayer) {
         unselectNumberOfPlayerButtons();
         Global.numberOfPlayer = numberOfPlayer;
@@ -76,7 +71,6 @@ public class MenuController: MonoBehaviour {
         AntiAircraftButton.colors = unselectedColors();
         TorpedoButton.colors = unselectedColors();
         ShootingGallaryButton.colors = unselectedColors();
-        BomberButton.colors = unselectedColors();
     }
 
     private ColorBlock unselectedColors () {
@@ -115,8 +109,6 @@ public class MenuController: MonoBehaviour {
             return TorpedoButton;
         } else if (gameType == GameType.shootingGallary) {
             return ShootingGallaryButton;
-        } else if (gameType == GameType.bomber) {
-            return BomberButton;
         }
         return null;
     }

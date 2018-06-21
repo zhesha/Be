@@ -32,12 +32,6 @@ public class MenuControllerTests {
     }
 
     [Test]
-    public void onBomberClick () {
-        menuController.onBomberClick();
-        Assert.AreEqual(GameType.bomber, Global.gameType);
-    }
-
-    [Test]
     public void onTorpedoClick () {
         menuController.onTorpedoClick();
         Assert.AreEqual(GameType.torpedo, Global.gameType);
