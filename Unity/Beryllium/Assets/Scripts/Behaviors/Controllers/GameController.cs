@@ -9,9 +9,9 @@ public class GameController : MonoBehaviour {
 	void Start () {
         var gameType = Global.gameType;
         if (gameType == GameType.antiAircraft) {
-            setUpAntiAircraft();
+            setUp();
         } else if (gameType == GameType.torpedo) {
-            setUpTorpedo();
+            setUp();
         } else if (gameType == GameType.shootingGallary) {
             setUpShootingGallary();
         } else if (gameType == GameType.bomber) {
@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour {
         }
 	}
 
-    void setUpAntiAircraft () {
+    void setUp () {
         placeGround();
 
         GameObject playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
@@ -43,10 +43,6 @@ public class GameController : MonoBehaviour {
         }
 
         wave();
-    }
-
-    void setUpTorpedo () {
-        Debug.Log("Not realized");
     }
 
     void setUpShootingGallary () {
@@ -102,7 +98,13 @@ public class GameController : MonoBehaviour {
     }
 
     TargetType randomizeTargetType () {
-        return (TargetType)Random.Range(0, 3);
+        int randomType = 0;
+        if (Global.gameType == GameType.antiAircraft) {
+            randomType = Random.Range(0, 3);
+        } else if (Global.gameType == GameType.torpedo) {
+            randomType = Random.Range(3, 6);
+        }
+        return (TargetType)randomType;
     }
 
     void spawnAir (int path, TargetType targetType, MovementDirection direction) {

@@ -10,8 +10,12 @@ public class Player : MonoBehaviour {
     private float shootingCoolDown = 0;
     private Controls controls;
     private int playerSideMultiplier;
+    private float leftBound;
+    private float rightBound;
 
     public void setUp (PlayerIndex playerIndex) {
+        shootingDirection = ShootingDirection.up;
+        updateShootingDirectionSprite();
         if (playerIndex == PlayerIndex.first) {
             setUpAsFirst();
             controls = new Controls(PlayerIndex.first);
@@ -29,6 +33,11 @@ public class Player : MonoBehaviour {
         placePlayer();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.flipX = false;
+
+        SceneUtils scene = SceneUtils.instance;
+        var width = GetComponent<SpriteRenderer>().bounds.size.x;
+        leftBound = 0 + width / 2;
+        rightBound = scene.maxX - width / 2;
     }
 
     public void setUpAsSecond () {
@@ -36,6 +45,11 @@ public class Player : MonoBehaviour {
         placePlayer();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.flipX = true;
+
+        SceneUtils scene = SceneUtils.instance;
+        var width = GetComponent<SpriteRenderer>().bounds.size.x;
+        rightBound = 0 - width / 2;
+        leftBound = scene.minX + width / 2;
     }
 
     public void placePlayer () {
@@ -48,7 +62,12 @@ public class Player : MonoBehaviour {
     }
 	
 	void Update () {
-        updateShootingDirection();
+        if (Global.gameType == GameType.antiAircraft) {
+            updateShootingDirection();
+        }
+        if (Global.gameType == GameType.torpedo) {
+            updatePosition();
+        }
         updateShoot();
 	}
 
@@ -63,10 +82,14 @@ public class Player : MonoBehaviour {
         }
 
         if (oldShootingDirection != shootingDirection) {
-            var spriteRenderer = GetComponent<SpriteRenderer>();
-            var sprites = Resources.LoadAll<Sprite>("Sprites/Player");
-            spriteRenderer.sprite = sprites[(int)shootingDirection];
+            updateShootingDirectionSprite();
         }
+    }
+
+    void updateShootingDirectionSprite () {
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+        var sprites = Resources.LoadAll<Sprite>("Sprites/Player");
+        spriteRenderer.sprite = sprites[(int)shootingDirection];
     }
 
     void updateShoot () {
@@ -100,6 +123,26 @@ public class Player : MonoBehaviour {
             projectile.direction = new Vector3(0, 1, 0);
         } else if (shootingDirection == ShootingDirection.down) {
             projectile.direction = new Vector3(-1f * playerSideMultiplier, 0.5f, 0f);
+        }
+    }
+
+    void updatePosition () {
+        const float speed = 2;
+        var newPosition = transform.position;
+        if (controls.left) {
+            newPosition += Vector3.left * speed * Time.deltaTime;
+        } else if (controls.right) {
+            newPosition += Vector3.right * speed * Time.deltaTime;
+        } else {
+            return;
+        }
+
+        if(newPosition.x < leftBound) {
+            transform.position = new Vector3(leftBound, newPosition.y, 0);
+        } else if (newPosition.x > rightBound) {
+            transform.position = new Vector3(rightBound, newPosition.y, 0);
+        } else {
+            transform.position = newPosition;
         }
     }
 }

@@ -26,6 +26,21 @@ public class TargetOptions {
                 name = "Air";
                 spriteNumber = 2;
                 break;
+            case TargetType.firstShip:
+                widthShift = 0.5f;
+                name = "Sea";
+                spriteNumber = 0;
+                break;
+            case TargetType.secondShip:
+                widthShift = 0.5f;
+                name = "Sea";
+                spriteNumber = 1;
+                break;
+            case TargetType.thirdShip:
+                widthShift = 0.5f;
+                name = "Sea";
+                spriteNumber = 2;
+                break;
         }
     }
 
