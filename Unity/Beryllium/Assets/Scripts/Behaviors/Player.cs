@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
     private enum ShootingDirection { normal, up, down}
     private ShootingDirection shootingDirection;
-    const float shootingCoolDownRate = 2f;
+    const float shootingCoolDownRate = 3f;
     private float shootingCoolDown = 0;
     private Controls controls;
     private int playerSideMultiplier;
@@ -133,7 +133,7 @@ public class Player : MonoBehaviour {
     }
 
     void updatePosition () {
-        const float speed = 2;
+        const float speed = 3;
         var newPosition = transform.position;
         if (controls.left) {
             newPosition += Vector3.left * speed * Time.deltaTime;

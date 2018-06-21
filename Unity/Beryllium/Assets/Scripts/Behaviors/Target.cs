@@ -6,6 +6,7 @@ public class Target : MonoBehaviour {
 
     private Vector3 direction;
     private MovementDirection _movementDirection;
+    float speed;
 
     public MovementDirection movementDirection {
         set {
@@ -23,7 +24,6 @@ public class Target : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        float speed = 2;
         transform.position += direction * speed * Time.deltaTime;
         SceneUtils scene = SceneUtils.instance;
         if (_movementDirection == MovementDirection.left) {
@@ -38,7 +38,10 @@ public class Target : MonoBehaviour {
 	}
 
     public void init (TargetOptions options, MovementDirection direction, int path) {
+        const float widthShift = 0.5f;
         var spriteRenderer = GetComponent<SpriteRenderer>();
+
+        speed = options.speed;
 
         var sprites = Resources.LoadAll<Sprite>(options.path);
         spriteRenderer.sprite = sprites[options.spriteNumber];
@@ -54,9 +57,9 @@ public class Target : MonoBehaviour {
         var y = startPath + path;
         var x = 0f;
         if (direction == MovementDirection.left) {
-            x = scene.maxX + options.widthShift;
+            x = scene.maxX + widthShift;
         } else {
-            x = scene.minX - options.widthShift;
+            x = scene.minX - widthShift;
         }
         transform.position = new Vector3(x, y, 0);
 

@@ -5,51 +5,51 @@ using UnityEngine;
 public class TargetOptions {
 
     const string pathPrefix = "Sprites/";
-    readonly public float widthShift;
     readonly public string name;
     readonly public int spriteNumber;
+    readonly public float speed;
 
     public TargetOptions (TargetType type) {
         switch (type) {
             case TargetType.bigAircraft:
-                widthShift = 0.5f;
                 name = "Air";
                 spriteNumber = 0;
+                speed = 2;
                 break;
             case TargetType.mediumAircraft:
-                widthShift = 0.5f;
                 name = "Air";
                 spriteNumber = 1;
+                speed = 2.5f;
                 break;
             case TargetType.smallAircraft:
-                widthShift = 0.5f;
                 name = "Air";
                 spriteNumber = 2;
+                speed = 3;
                 break;
             case TargetType.firstShip:
-                widthShift = 0.5f;
                 name = "Sea";
                 spriteNumber = 0;
+                speed = 2;
                 break;
             case TargetType.secondShip:
-                widthShift = 0.5f;
                 name = "Sea";
                 spriteNumber = 1;
+                speed = 2.5f;
                 break;
             case TargetType.thirdShip:
-                widthShift = 0.5f;
                 name = "Sea";
                 spriteNumber = 2;
+                speed = 3;
                 break;
             case TargetType.duck:
-                widthShift = 0.5f;
                 name = "ShoocctingGallary";
                 spriteNumber = 0;
+                speed = 3;
                 break;
             case TargetType.rabbit:
-                widthShift = 0.5f;
                 name = "ShoocctingGallary";
                 spriteNumber = 1;
+                speed = 3;
                 break;
         }
     }
