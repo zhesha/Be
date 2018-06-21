@@ -41,6 +41,16 @@ public class TargetOptions {
                 name = "Sea";
                 spriteNumber = 2;
                 break;
+            case TargetType.duck:
+                widthShift = 0.5f;
+                name = "ShoocctingGallary";
+                spriteNumber = 0;
+                break;
+            case TargetType.rabbit:
+                widthShift = 0.5f;
+                name = "ShoocctingGallary";
+                spriteNumber = 1;
+                break;
         }
     }
 

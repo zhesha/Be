@@ -8,5 +8,7 @@ public enum TargetType {
     smallAircraft,
     firstShip,
     secondShip,
-    thirdShip
+    thirdShip,
+    duck,
+    rabbit
 }

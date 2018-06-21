@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
     private enum ShootingDirection { normal, up, down}
     private ShootingDirection shootingDirection;
-    const float shootingCoolDownRate = 2;
+    const float shootingCoolDownRate = 0.1f;
     private float shootingCoolDown = 0;
     private Controls controls;
     private int playerSideMultiplier;
@@ -62,10 +62,16 @@ public class Player : MonoBehaviour {
     }
 	
 	void Update () {
-        if (Global.gameType == GameType.antiAircraft) {
+        if (
+            Global.gameType == GameType.antiAircraft || 
+            Global.gameType == GameType.shootingGallary
+        ) {
             updateShootingDirection();
         }
-        if (Global.gameType == GameType.torpedo) {
+        if (
+            Global.gameType == GameType.torpedo ||
+            Global.gameType == GameType.shootingGallary
+        ) {
             updatePosition();
         }
         updateShoot();

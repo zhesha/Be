@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour {
     }
 
     void setUpShootingGallary () {
-        Debug.Log("Not realized");
+        setUp();
     }
 
     void setUpBomber () {
@@ -64,6 +64,14 @@ public class GameController : MonoBehaviour {
     }
 
     void wave () {
+        if (Global.gameType == GameType.shootingGallary) {
+            sootingGallaryWave();
+        } else {
+            antiAirAndTorpedoWave();
+        }
+    }
+
+    void antiAirAndTorpedoWave () {
         bool[] path = randomizePath();
         TargetType targetType = randomizeTargetType();
         MovementDirection movementDirection = randomizeDirection();
@@ -71,6 +79,20 @@ public class GameController : MonoBehaviour {
         for (int i = 0; i < path.Length; i++) {
             var exist = path[i];
             if (exist) {
+                spawnAir(i, targetType, movementDirection);
+            }
+        }
+    }
+
+    void sootingGallaryWave () {
+        bool[] path = randomizePath();
+
+        for (int i = 0; i < path.Length; i++) {
+            var exist = path[i];
+            if (exist) {
+
+                TargetType targetType = randomizeTargetType();
+                MovementDirection movementDirection = randomizeDirection();
                 spawnAir(i, targetType, movementDirection);
             }
         }
@@ -103,6 +125,8 @@ public class GameController : MonoBehaviour {
             randomType = Random.Range(0, 3);
         } else if (Global.gameType == GameType.torpedo) {
             randomType = Random.Range(3, 6);
+        } else if (Global.gameType == GameType.shootingGallary) {
+            randomType = Random.Range(6, 8);
         }
         return (TargetType)randomType;
     }
