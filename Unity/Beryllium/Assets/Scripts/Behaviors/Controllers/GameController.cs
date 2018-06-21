@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -29,6 +30,9 @@ public class GameController : MonoBehaviour {
         GameObject target = GameObject.FindWithTag("Target");
         if (target == null) {
             wave();
+        }
+        if (Input.GetKey("escape")) {
+            SceneManager.LoadScene("MenuScene");
         }
 	}
 
