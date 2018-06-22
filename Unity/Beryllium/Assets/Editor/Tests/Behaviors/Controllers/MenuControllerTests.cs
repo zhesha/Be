@@ -9,7 +9,7 @@ public class MenuControllerTests {
     [OneTimeSetUp]
     protected void SetUp () {
         EditorSceneManager.OpenScene("Assets/Scenes/MenuScene.unity");
-        GameObject gameObject = GameObject.Find("MenuController");
+        var gameObject = GameObject.Find("MenuController");
         menuController = gameObject.GetComponent<MenuController>();
     }
 

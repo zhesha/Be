@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Target : MonoBehaviour {
 
-    private Vector3 direction;
-    private MovementDirection _movementDirection;
+    Vector3 direction;
+    MovementDirection _movementDirection;
     float speed;
 
     public MovementDirection movementDirection {
@@ -49,7 +49,7 @@ public class Target : MonoBehaviour {
             spriteRenderer.flipX = true;
         }
 
-        BoxCollider2D boxCollider2D = GetComponent<BoxCollider2D>();
+        var boxCollider2D = GetComponent<BoxCollider2D>();
         boxCollider2D.size = spriteRenderer.size;
 
         SceneUtils scene = SceneUtils.instance;
@@ -67,8 +67,8 @@ public class Target : MonoBehaviour {
     }
 
 	public void OnCollisionEnter2D (Collision2D collision) {
-        Object projectilePrefab = Resources.Load("Prefabs/Death");
-        GameObject projectileObj = (GameObject)Instantiate(
+        var projectilePrefab = Resources.Load("Prefabs/Death");
+        var projectileObj = (GameObject)Instantiate(
             projectilePrefab,
             transform.position,
             Quaternion.identity

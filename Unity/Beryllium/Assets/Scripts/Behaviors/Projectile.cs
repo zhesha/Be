@@ -3,7 +3,7 @@
 public class Projectile : MonoBehaviour {
 
     public Vector3 direction { get; set; }
-    private const int speed = 3; 
+    const int speed = 3; 
 
 	void Update () {
         transform.position += direction.normalized * speed * Time.deltaTime;

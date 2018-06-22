@@ -2,8 +2,8 @@
 
 public class Controls {
 
-    string upKey, downKey, leftKey, rightKey, fireKey;
-    bool auto = false;
+    readonly string upKey, downKey, leftKey, rightKey, fireKey;
+    readonly bool auto;
 
     public Controls (PlayerIndex playerIndex) {
         if (playerIndex == PlayerIndex.first) {

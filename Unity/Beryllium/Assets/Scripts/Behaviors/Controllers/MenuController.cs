@@ -48,32 +48,32 @@ public class MenuController: MonoBehaviour {
         selectGameType(GameType.shootingGallary);
     }
 
-    private void selectNumberOfPlayer (NumberOfPlayer numberOfPlayer) {
+    void selectNumberOfPlayer (NumberOfPlayer numberOfPlayer) {
         unselectNumberOfPlayerButtons();
         Global.numberOfPlayer = numberOfPlayer;
-        Button button = buttonForNumberOfPlayer(numberOfPlayer);
+        var button = buttonForNumberOfPlayer(numberOfPlayer);
         button.colors = selectedColors();
     }
 
-    private void selectGameType (GameType gameType) {
+    void selectGameType (GameType gameType) {
         unselectGameTypeButtons();
         Global.gameType = gameType;
-        Button button = buttonForGameType(gameType);
+        var button = buttonForGameType(gameType);
         button.colors = selectedColors();
     }
 
-    private void unselectNumberOfPlayerButtons () {
+    void unselectNumberOfPlayerButtons () {
         OnePlayerButton.colors = unselectedColors();
         TwoPlayerButton.colors = unselectedColors();
     }
 
-    private void unselectGameTypeButtons () {
+    void unselectGameTypeButtons () {
         AntiAircraftButton.colors = unselectedColors();
         TorpedoButton.colors = unselectedColors();
         ShootingGallaryButton.colors = unselectedColors();
     }
 
-    private ColorBlock unselectedColors () {
+    ColorBlock unselectedColors () {
         ColorBlock colors = ColorBlock.defaultColorBlock;
         float shadeOfGray = 0.7843137f;//c8 for same color as camera background
         colors.normalColor = new Color(shadeOfGray, shadeOfGray, shadeOfGray);
@@ -83,7 +83,7 @@ public class MenuController: MonoBehaviour {
         return colors;
     }
 
-    private ColorBlock selectedColors () {
+    ColorBlock selectedColors () {
         ColorBlock colors = ColorBlock.defaultColorBlock;
         colors.normalColor = Color.cyan;
         colors.highlightedColor = Color.cyan;
@@ -92,24 +92,27 @@ public class MenuController: MonoBehaviour {
         return colors;
     }
 
-    private Button buttonForNumberOfPlayer (NumberOfPlayer numberOfPlayer) {
-        if (numberOfPlayer == NumberOfPlayer.one) {
-            return OnePlayerButton;
-        } else if (numberOfPlayer == NumberOfPlayer.two) {
-            return TwoPlayerButton;
+    Button buttonForNumberOfPlayer (NumberOfPlayer numberOfPlayer) {
+        switch (numberOfPlayer) {
+            case NumberOfPlayer.one:
+                return OnePlayerButton;
+            case NumberOfPlayer.two:
+                return TwoPlayerButton;
+            default:
+                return null;
         }
-
-        return null;
     }
 
-    private Button buttonForGameType (GameType gameType) {
-        if (gameType == GameType.antiAircraft) {
-            return AntiAircraftButton;
-        } else if (gameType == GameType.torpedo) {
-            return TorpedoButton;
-        } else if (gameType == GameType.shootingGallary) {
-            return ShootingGallaryButton;
+    Button buttonForGameType (GameType gameType) {
+        switch (gameType) {
+            case GameType.antiAircraft:
+                return AntiAircraftButton;
+            case GameType.torpedo:
+                return TorpedoButton;
+            case GameType.shootingGallary:
+                return ShootingGallaryButton;
+            default:
+                return null;
         }
-        return null;
     }
 }

@@ -7,17 +7,17 @@ public class SceneUtils {
 	public static SceneUtils instance {
         get {
             return new SceneUtils(
-                (float)Screen.width,
-                (float)Screen.height,
+                Screen.width,
+                Screen.height,
                 Camera.main.orthographicSize,
                 GameObject.Find("Ground").GetComponent<LineRenderer>().startWidth
             );
         }
     }
 
-    private float screenWidth;
-    private float screenHeight;
-    private float cameraSize;
+    float screenWidth;
+    float screenHeight;
+    float cameraSize;
 
     public float bottomShift { private set; get; }
 
@@ -60,8 +60,7 @@ public class SceneUtils {
             position.y < minY
         ) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 }

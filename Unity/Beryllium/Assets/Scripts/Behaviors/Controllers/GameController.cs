@@ -10,13 +10,13 @@ public class GameController : MonoBehaviour {
 	void Start () {
         placeGround();
 
-        GameObject playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
-        GameObject playerObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        Player firstPlayer = playerObject.GetComponent<Player>();
+        var playerPrefab = Resources.Load<GameObject>("Prefabs/Player");
+        var playerObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        var firstPlayer = playerObject.GetComponent<Player>();
         firstPlayer.setUp(PlayerIndex.first);
 
         playerObject = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        Player secondPlayer = playerObject.GetComponent<Player>();
+        var secondPlayer = playerObject.GetComponent<Player>();
         if (Global.numberOfPlayer == NumberOfPlayer.two) {
             secondPlayer.setUp(PlayerIndex.second);
         } else {
@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour {
 	}
 	
 	void Update () {
-        GameObject target = GameObject.FindWithTag("Target");
+        var target = GameObject.FindWithTag("Target");
         if (target == null) {
             wave();
         }
@@ -59,9 +59,9 @@ public class GameController : MonoBehaviour {
     }
 
     void antiAirAndTorpedoWave () {
-        bool[] path = randomizePath();
-        TargetType targetType = randomizeTargetType();
-        MovementDirection movementDirection = randomizeDirection();
+        var path = randomizePath();
+        var targetType = randomizeTargetType();
+        var movementDirection = randomizeDirection();
 
         for (int i = 0; i < path.Length; i++) {
             var exist = path[i];
@@ -72,14 +72,14 @@ public class GameController : MonoBehaviour {
     }
 
     void sootingGallaryWave () {
-        bool[] path = randomizePath();
+        var path = randomizePath();
 
         for (int i = 0; i < path.Length; i++) {
             var exist = path[i];
             if (exist) {
 
-                TargetType targetType = randomizeTargetType();
-                MovementDirection movementDirection = randomizeDirection();
+                var targetType = randomizeTargetType();
+                var movementDirection = randomizeDirection();
                 spawnAir(i, targetType, movementDirection);
             }
         }
@@ -92,7 +92,7 @@ public class GameController : MonoBehaviour {
         var result = new bool[pathCount];
 
         for (int i = 0; i < pathCount; i++) {
-            float probability = Random.Range(0, 1f);
+            var probability = Random.Range(0, 1f);
             result[i] = probability > boundaryProbability;
         }
         return result;
@@ -101,34 +101,38 @@ public class GameController : MonoBehaviour {
     MovementDirection randomizeDirection () {
         if (Random.Range(0, 2) > 0) {
             return MovementDirection.left;
-        } else {
-            return MovementDirection.right;
         }
+        return MovementDirection.right;
     }
 
     TargetType randomizeTargetType () {
         int randomType = 0;
-        if (Global.gameType == GameType.antiAircraft) {
-            randomType = Random.Range(0, 3);
-        } else if (Global.gameType == GameType.torpedo) {
-            randomType = Random.Range(3, 6);
-        } else if (Global.gameType == GameType.shootingGallary) {
-            randomType = Random.Range(6, 8);
+        switch (Global.gameType) {
+            case GameType.antiAircraft:
+                randomType = Random.Range(0, 3);
+                break;
+            case GameType.torpedo:
+                randomType = Random.Range(3, 6);
+                break;
+            case GameType.shootingGallary:
+                randomType = Random.Range(6, 8);
+                break;
         }
+
         return (TargetType)randomType;
     }
 
     void spawnAir (int path, TargetType targetType, MovementDirection direction) {
-        TargetOptions options = new TargetOptions(targetType);
+        var options = new TargetOptions(targetType);
 
-        Object targetPrefab = Resources.Load("Prefabs/Target");
-        GameObject targetObj = (GameObject)Instantiate(
+        var targetPrefab = Resources.Load("Prefabs/Target");
+        var targetObj = (GameObject)Instantiate(
             targetPrefab,
             Vector3.zero,
             Quaternion.identity
         );
 
-        Target target = targetObj.GetComponent<Target>();
+        var target = targetObj.GetComponent<Target>();
         target.init(options, direction, path);
     }
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    private enum ShootingDirection { normal, up, down}
-    private ShootingDirection shootingDirection;
+    enum ShootingDirection { normal, up, down }
+    ShootingDirection shootingDirection;
     const float shootingCoolDownRate = 3f;
-    private float shootingCoolDown = 0;
-    private Controls controls;
-    private int playerSideMultiplier;
-    private float leftBound;
-    private float rightBound;
+    float shootingCoolDown;
+    Controls controls;
+    int playerSideMultiplier;
+    float leftBound;
+    float rightBound;
 
     public void setUp (PlayerIndex playerIndex) {
         shootingDirection = ShootingDirection.up;
@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
     public void setUpAsFirst () {
         playerSideMultiplier = 1;
         placePlayer();
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        var spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.flipX = false;
 
         SceneUtils scene = SceneUtils.instance;
@@ -43,7 +43,7 @@ public class Player : MonoBehaviour {
     public void setUpAsSecond () {
         playerSideMultiplier = -1;
         placePlayer();
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        var spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.flipX = true;
 
         SceneUtils scene = SceneUtils.instance;
@@ -108,27 +108,34 @@ public class Player : MonoBehaviour {
 
     void shoot () {
         //TODO: need some refactor
-        Object projectilePrefab = Resources.Load("Prefabs/Projectile");
+        var projectilePrefab = Resources.Load("Prefabs/Projectile");
         Vector3 position = transform.position;
-
-        if (shootingDirection == ShootingDirection.normal) {
-            position.y += 0.2f;
-        } else if (shootingDirection == ShootingDirection.up) {
-            position.x += 0.1f * playerSideMultiplier;
-            position.y += 0.2f;
-        } else if (shootingDirection == ShootingDirection.down) {
-            position.x -= 0.2f * playerSideMultiplier;
-            position.y += 0.15f;
+        switch (shootingDirection) {
+            case ShootingDirection.normal:
+                position.y += 0.2f;
+                break;
+            case ShootingDirection.up:
+                position.x += 0.1f * playerSideMultiplier;
+                position.y += 0.2f;
+                break;
+            case ShootingDirection.down:
+                position.x -= 0.2f * playerSideMultiplier;
+                position.y += 0.15f;
+                break;
         }
 
-        GameObject projectileObj = (GameObject)Instantiate(projectilePrefab, position, Quaternion.identity);
-        Projectile projectile = projectileObj.GetComponent<Projectile>();
-        if (shootingDirection == ShootingDirection.normal) {
-            projectile.direction = new Vector3(-0.5f * playerSideMultiplier, 1f, 0f);
-        } else if (shootingDirection == ShootingDirection.up) {
-            projectile.direction = new Vector3(0, 1, 0);
-        } else if (shootingDirection == ShootingDirection.down) {
-            projectile.direction = new Vector3(-1f * playerSideMultiplier, 0.5f, 0f);
+        var projectileObj = (GameObject)Instantiate(projectilePrefab, position, Quaternion.identity);
+        var projectile = projectileObj.GetComponent<Projectile>();
+        switch (shootingDirection) {
+            case ShootingDirection.normal:
+                projectile.direction = new Vector3(-0.5f * playerSideMultiplier, 1f, 0f);
+                break;
+            case ShootingDirection.up:
+                projectile.direction = new Vector3(0, 1, 0);
+                break;
+            case ShootingDirection.down:
+                projectile.direction = new Vector3(-1f * playerSideMultiplier, 0.5f, 0f);
+                break;
         }
     }
 

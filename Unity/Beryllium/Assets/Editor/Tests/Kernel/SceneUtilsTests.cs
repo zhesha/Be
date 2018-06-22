@@ -34,13 +34,13 @@ public class SceneUtilsTests {
 
     [Test]
     public void inBound_success () {
-        Vector3 point = new Vector3(1, 1, 0);
+        var point = new Vector3(1, 1, 0);
         Assert.AreEqual(true, sceneUtils.inBound(point));
     }
 
     [Test]
     public void inBound_fail () {
-        Vector3 point = new Vector3(-10, 1, 0);
+        var point = new Vector3(-10, 1, 0);
         Assert.AreEqual(false, sceneUtils.inBound(point));
     }
 }
