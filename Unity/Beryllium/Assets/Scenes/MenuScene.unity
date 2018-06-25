@@ -979,7 +979,6 @@ MonoBehaviour:
   AntiAircraftButton: {fileID: 1725426355}
   TorpedoButton: {fileID: 1458933647}
   ShootingGallaryButton: {fileID: 676876404}
-  BomberButton: {fileID: 0}
   PlayButton: {fileID: 31371196}
   ExitButton: {fileID: 430539591}
 --- !u!1 &1458933645

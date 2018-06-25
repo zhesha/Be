@@ -36,10 +36,6 @@ public class GameController : MonoBehaviour {
         }
 	}
 
-    void setUpBomber () {
-        Debug.Log("Not realized");
-    }
-
     void placeGround () {
         float groundShift = ground.startWidth / 2;
         SceneUtils scene = SceneUtils.instance;
